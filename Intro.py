@@ -44,8 +44,7 @@ with col1:
 
     st.subheader("Introducción")
 
-    # >>> AGREGA AQUÍ LA IMAGEN DE INTRODUCCIÓN <<<
-    image = Image.open("IMAGEN_INTRODUCCION.png")
+    image = Image.open("inttro.jpg")
     st.image(image, width=200)
 
     st.write(
@@ -64,8 +63,7 @@ with col1:
 
     st.subheader("Conversión de texto a voz")
 
-    # >>> AGREGA AQUÍ LA IMAGEN DE TEXTO A VOZ <<<
-    image = Image.open("IMAGEN_TEXTO_VOZ.png")
+    image = Image.open("texttospeech.jpg")
     st.image(image, width=200)
 
     st.write(
@@ -84,8 +82,7 @@ with col1:
 
     st.subheader("Voz a texto multilingüe")
 
-    # >>> AGREGA AQUÍ LA IMAGEN DE VOZ A TEXTO <<<
-    image = Image.open("IMAGEN_VOZ_TEXTO.png")
+    image = Image.open("traductor.jpg")
     st.image(image, width=200)
 
     st.write(
@@ -110,8 +107,7 @@ with col2:
 
     st.subheader("Imagen a texto (OCR) y análisis de vocales")
 
-    # >>> AGREGA AQUÍ LA IMAGEN DE OCR <<<
-    image = Image.open("IMAGEN_OCR.png")
+    image = Image.open("ocr.jpg")
     st.image(image, width=200)
 
     st.write(
@@ -131,8 +127,7 @@ with col2:
 
     st.subheader("Evaluación automática TF")
 
-    # >>> AGREGA AQUÍ LA IMAGEN DE EVALUACIÓN <<<
-    image = Image.open("IMAGEN_EVALUACION.png")
+    image = Image.open("analis.jpg")
     st.image(image, width=200)
 
     st.write(
@@ -151,8 +146,7 @@ with col2:
 
     st.subheader("Reconocimiento de emociones")
 
-    # >>> AGREGA AQUÍ LA IMAGEN DE EMOCIONES <<<
-    image = Image.open("IMAGEN_EMOCIONES.png")
+    image = Image.open("reconocmiento.jpg")
     st.image(image, width=200)
 
     st.write(
@@ -177,8 +171,7 @@ with col3:
 
     st.subheader("Detección de objetos en imágenes")
 
-    # >>> AGREGA AQUÍ LA IMAGEN DE DETECCIÓN DE OBJETOS <<<
-    image = Image.open("IMAGEN_OBJETOS.png")
+    image = Image.open("recobj.jpg")
     st.image(image, width=200)
 
     st.write(
@@ -197,8 +190,7 @@ with col3:
 
     st.subheader("Nube de palabras")
 
-    # >>> AGREGA AQUÍ LA IMAGEN DE NUBE DE PALABRAS <<<
-    image = Image.open("IMAGEN_NUBE_PALABRAS.png")
+    image = Image.open("nube.jpg")
     st.image(image, width=200)
 
     st.write(
@@ -217,8 +209,7 @@ with col3:
 
     st.subheader("Teachable Machine")
 
-    # >>> AGREGA AQUÍ LA IMAGEN DE TEACHABLE MACHINE <<<
-    image = Image.open("IMAGEN_TEACHABLE_MACHINE.png")
+    image = Image.open("TM.jpg")
     st.image(image, width=200)
 
     st.write(
@@ -229,4 +220,3 @@ with col3:
     url = "https://tm-detection-npqnkslgj6ps87sj9fvtre.streamlit.app/"
 
     st.write(f"Teachable Machine: [Enlace]({url})")
-
