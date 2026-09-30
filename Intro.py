@@ -1,28 +1,169 @@
 import streamlit as st
-from PIL import Image
+from PIL import Image, ImageOps
+
+# ============================================================
+# CONFIGURACIÓN
+# ============================================================
+
+st.set_page_config(
+    page_title="Aplicaciones de Inteligencia Artificial",
+    layout="wide"
+)
+
+# ============================================================
+# CSS
+# ============================================================
+
+st.markdown("""
+<style>
+
+    /* Título principal */
+    h1 {
+        margin-bottom: 10px;
+    }
+
+    /* Espacio entre columnas */
+    [data-testid="column"] {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    /* Tarjetas */
+    .tarjeta {
+        padding: 5px;
+        margin-bottom: 35px;
+    }
+
+    /* Título de cada aplicación */
+    .titulo-tarjeta {
+        height: 90px;
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .titulo-tarjeta h3 {
+        margin-top: 0;
+        font-size: 25px;
+        line-height: 1.15;
+    }
+
+    /* Imagen */
+    .imagen-tarjeta {
+        width: 100%;
+        height: 170px;
+        object-fit: cover;
+        border-radius: 10px;
+        display: block;
+    }
+
+    /* Descripción */
+    .descripcion-tarjeta {
+        min-height: 105px;
+        font-size: 17px;
+        line-height: 1.6;
+        padding-top: 15px;
+    }
+
+    /* Enlace */
+    .enlace-tarjeta {
+        height: 40px;
+        font-size: 16px;
+    }
+
+</style>
+""", unsafe_allow_html=True)
+
+
+# ============================================================
+# FUNCIÓN PARA MOSTRAR TARJETAS
+# ============================================================
+
+def mostrar_tarjeta(titulo, imagen, descripcion, texto_enlace, url):
+
+    # Título con altura fija
+    st.markdown(
+        f"""
+        <div class="titulo-tarjeta">
+            <h3>{titulo}</h3>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+    # Abrir y adaptar imagen a tamaño uniforme
+    img = Image.open(imagen)
+
+    # Todas las imágenes tendrán exactamente la misma proporción
+    img = ImageOps.fit(
+        img,
+        (600, 300),
+        method=Image.Resampling.LANCZOS
+    )
+
+    st.image(
+        img,
+        width="stretch"
+    )
+
+    # Descripción con altura mínima
+    st.markdown(
+        f"""
+        <div class="descripcion-tarjeta">
+            {descripcion}
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+    # Enlace
+    st.markdown(
+        f"""
+        <div class="enlace-tarjeta">
+            {texto_enlace}: <a href="{url}" target="_blank">Enlace</a>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+
+# ============================================================
+# TÍTULO
+# ============================================================
 
 st.title("Aplicaciones de Inteligencia Artificial.")
 
+
+# ============================================================
+# SIDEBAR
+# ============================================================
+
 with st.sidebar:
+
     st.subheader("Aplicaciones con Inteligencia Artificial.")
 
     parrafo = (
-        "La inteligencia artificial permite mejorar la toma de decisiones con el uso de datos, "
-        "automatizar tareas rutinarias y proporcionar análisis avanzados en tiempo real, lo que "
-        "resulta en una mayor eficiencia y precisión en diversos campos."
+        "La inteligencia artificial permite mejorar la toma de decisiones "
+        "con el uso de datos, automatizar tareas rutinarias y proporcionar "
+        "análisis avanzados en tiempo real, lo que resulta en una mayor "
+        "eficiencia y precisión en diversos campos."
     )
 
     st.write(parrafo)
 
 
-# Enlace general
+# ============================================================
+# ENLACE GENERAL
+# ============================================================
+
 url_ia = "https://sites.google.com/view/aplicacionesdeia/inicio"
 
 st.subheader(
     "En el siguiente enlace puedes encontrar páginas y ejercicios prácticos"
 )
 
-st.write(f"Enlace para páginas y ejercicios: [Enlace]({url_ia})")
+st.write(
+    f"Enlace para páginas y ejercicios: [Enlace]({url_ia})"
+)
 
 
 # ============================================================
@@ -38,61 +179,35 @@ col1, col2, col3 = st.columns(3)
 
 with col1:
 
-    # --------------------------------------------------------
     # 1. INTRODUCCIÓN
-    # --------------------------------------------------------
-
-    st.subheader("Introducción")
-
-    image = Image.open("inttro.jpg")
-    st.image(image, width=200)
-
-    st.write(
-        "En esta aplicación se presenta una introducción a las "
-        "aplicaciones de la Inteligencia Artificial."
+    mostrar_tarjeta(
+        "Introducción",
+        "inttro.jpg",
+        "En esta aplicación se presenta una introducción "
+        "a las aplicaciones de la Inteligencia Artificial.",
+        "Introducción",
+        "https://estesi-z29ropifyfvwhuted9mfsb.streamlit.app/"
     )
 
-    url = "https://estesi-z29ropifyfvwhuted9mfsb.streamlit.app/"
-
-    st.write(f"Introducción: [Enlace]({url})")
-
-
-    # --------------------------------------------------------
-    # 2. CONVERSIÓN DE TEXTO A VOZ
-    # --------------------------------------------------------
-
-    st.subheader("Conversión de texto a voz")
-
-    image = Image.open("texttospeech.jpg")
-    st.image(image, width=200)
-
-    st.write(
+    # 2. TEXTO A VOZ
+    mostrar_tarjeta(
+        "Conversión de texto a voz",
+        "texttospeech.jpg",
         "Aplicación que permite convertir texto escrito "
-        "en voz mediante Inteligencia Artificial."
+        "en voz mediante Inteligencia Artificial.",
+        "Texto a voz",
+        "https://ahora-si-jqdr2awuqu2v3qgtm5tt2b.streamlit.app/"
     )
 
-    url = "https://ahora-si-jqdr2awuqu2v3qgtm5tt2b.streamlit.app/"
-
-    st.write(f"Texto a voz: [Enlace]({url})")
-
-
-    # --------------------------------------------------------
-    # 3. VOZ A TEXTO MULTILINGÜE
-    # --------------------------------------------------------
-
-    st.subheader("Voz a texto multilingüe")
-
-    image = Image.open("traductor.jpg")
-    st.image(image, width=200)
-
-    st.write(
+    # 3. VOZ A TEXTO
+    mostrar_tarjeta(
+        "Voz a texto multilingüe",
+        "traductor.jpg",
         "Aplicación que permite convertir voz en texto "
-        "y trabajar con diferentes idiomas."
+        "y trabajar con diferentes idiomas.",
+        "Voz a texto",
+        "https://cualquiercosa-9vujzvkt47ulpaigzy82em.streamlit.app/"
     )
-
-    url = "https://cualquiercosa-9vujzvkt47ulpaigzy82em.streamlit.app/"
-
-    st.write(f"Voz a texto: [Enlace]({url})")
 
 
 # ============================================================
@@ -101,62 +216,36 @@ with col1:
 
 with col2:
 
-    # --------------------------------------------------------
-    # 4. IMAGEN A TEXTO / OCR
-    # --------------------------------------------------------
-
-    st.subheader("Imagen a texto (OCR) y análisis de vocales")
-
-    image = Image.open("ocr.jpg")
-    st.image(image, width=200)
-
-    st.write(
+    # 4. OCR
+    mostrar_tarjeta(
+        "Imagen a texto (OCR) y análisis de vocales",
+        "ocr.jpg",
         "Aplicación que permite extraer texto de imágenes "
         "mediante reconocimiento óptico de caracteres (OCR) "
-        "y realizar análisis de vocales."
+        "y realizar análisis de vocales.",
+        "OCR",
+        "https://aplicacion-75drrvtjhfwfrvhehhudhk.streamlit.app/"
     )
 
-    url = "https://aplicacion-75drrvtjhfwfrvhehhudhk.streamlit.app/"
-
-    st.write(f"OCR: [Enlace]({url})")
-
-
-    # --------------------------------------------------------
-    # 5. EVALUACIÓN AUTOMÁTICA TF
-    # --------------------------------------------------------
-
-    st.subheader("Evaluación automática TF")
-
-    image = Image.open("analis.jpg")
-    st.image(image, width=200)
-
-    st.write(
+    # 5. EVALUACIÓN
+    mostrar_tarjeta(
+        "Evaluación automática TF",
+        "analis.jpg",
         "Aplicación para realizar procesos de evaluación "
-        "automática utilizando Inteligencia Artificial."
+        "automática utilizando Inteligencia Artificial.",
+        "Evaluación",
+        "https://tdfesp-admzi2whggzdysyv6hrrzw.streamlit.app/"
     )
 
-    url = "https://tdfesp-admzi2whggzdysyv6hrrzw.streamlit.app/"
-
-    st.write(f"Evaluación: [Enlace]({url})")
-
-
-    # --------------------------------------------------------
-    # 6. RECONOCIMIENTO DE EMOCIONES
-    # --------------------------------------------------------
-
-    st.subheader("Reconocimiento de emociones")
-
-    image = Image.open("reconocmiento.jpg")
-    st.image(image, width=200)
-
-    st.write(
+    # 6. EMOCIONES
+    mostrar_tarjeta(
+        "Reconocimiento de emociones",
+        "reconocmiento.jpg",
         "Aplicación que permite reconocer y analizar "
-        "emociones mediante Inteligencia Artificial."
+        "emociones mediante Inteligencia Artificial.",
+        "Emociones",
+        "https://sentimenta-8iy82nmkh7fnyggx7cecu5.streamlit.app/"
     )
-
-    url = "https://sentimenta-8iy82nmkh7fnyggx7cecu5.streamlit.app/"
-
-    st.write(f"Emociones: [Enlace]({url})")
 
 
 # ============================================================
@@ -165,58 +254,34 @@ with col2:
 
 with col3:
 
-    # --------------------------------------------------------
     # 7. DETECCIÓN DE OBJETOS
-    # --------------------------------------------------------
-
-    st.subheader("Detección de objetos en imágenes")
-
-    image = Image.open("recobj.jpg")
-    st.image(image, width=200)
-
-    st.write(
+    mostrar_tarjeta(
+        "Detección de objetos en imágenes",
+        "recobj.jpg",
         "Aplicación que permite detectar diferentes objetos "
-        "dentro de imágenes mediante Inteligencia Artificial."
+        "dentro de imágenes mediante Inteligencia Artificial.",
+        "Detección de objetos",
+        "https://yolov5-nemrh4dhsxvkjiv4bakkhb.streamlit.app/"
     )
 
-    url = "https://yolov5-nemrh4dhsxvkjiv4bakkhb.streamlit.app/"
-
-    st.write(f"Detección de objetos: [Enlace]({url})")
-
-
-    # --------------------------------------------------------
     # 8. NUBE DE PALABRAS
-    # --------------------------------------------------------
-
-    st.subheader("Nube de palabras")
-
-    image = Image.open("nube.jpg")
-    st.image(image, width=200)
-
-    st.write(
+    mostrar_tarjeta(
+        "Nube de palabras",
+        "nube.jpg",
         "Aplicación que permite generar nubes de palabras "
-        "a partir de textos y datos."
+        "a partir de textos y datos.",
+        "Nube de palabras",
+        "https://wordcloud-2urj9yggquvij7xmnmsqtv.streamlit.app/"
     )
 
-    url = "https://wordcloud-2urj9yggquvij7xmnmsqtv.streamlit.app/"
-
-    st.write(f"Nube de palabras: [Enlace]({url})")
-
-
-    # --------------------------------------------------------
     # 9. TEACHABLE MACHINE
-    # --------------------------------------------------------
-
-    st.subheader("Teachable Machine")
-
-    image = Image.open("TM.jpg")
-    st.image(image, width=200)
-
-    st.write(
-        "Aplicación para entrenar modelos de Inteligencia Artificial "
-        "y utilizarlos posteriormente para realizar predicciones."
+    mostrar_tarjeta(
+        "Teachable Machine",
+        "TM.jpg",
+        "Aplicación para entrenar modelos de Inteligencia "
+        "Artificial y utilizarlos posteriormente para "
+        "realizar predicciones.",
+        "Teachable Machine",
+        "https://tm-detection-npqnkslgj6ps87sj9fvtre.streamlit.app/"
     )
 
-    url = "https://tm-detection-npqnkslgj6ps87sj9fvtre.streamlit.app/"
-
-    st.write(f"Teachable Machine: [Enlace]({url})")
