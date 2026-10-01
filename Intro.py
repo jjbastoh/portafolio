@@ -1,6 +1,5 @@
 import streamlit as st
 from PIL import Image, ImageOps
-import textwrap
 
 # ============================================================
 # CONFIGURACIÓN
@@ -14,21 +13,34 @@ st.set_page_config(
 )
 
 # ============================================================
-# CSS PERSONALIZADO
+# CSS
 # ============================================================
 
 st.markdown("""
 <style>
 
     /* ========================================================
-       FONDO GENERAL
+       FONDO
        ======================================================== */
 
     .stApp {
         background:
-            radial-gradient(circle at top left, #312e81 0%, transparent 35%),
-            radial-gradient(circle at top right, #0e7490 0%, transparent 30%),
-            linear-gradient(135deg, #0f172a, #111827 55%, #1e1b4b);
+            radial-gradient(
+                circle at top left,
+                #312e81 0%,
+                transparent 35%
+            ),
+            radial-gradient(
+                circle at top right,
+                #0e7490 0%,
+                transparent 30%
+            ),
+            linear-gradient(
+                135deg,
+                #0f172a,
+                #111827 55%,
+                #1e1b4b
+            );
 
         color: #f8fafc;
     }
@@ -52,24 +64,24 @@ st.markdown("""
 
     section[data-testid="stSidebar"] h2,
     section[data-testid="stSidebar"] h3 {
-        color: white;
+        color: white !important;
     }
 
     section[data-testid="stSidebar"] p {
-        color: #cbd5e1;
+        color: #cbd5e1 !important;
         line-height: 1.7;
     }
 
 
     /* ========================================================
-       TÍTULO PRINCIPAL
+       TÍTULO
        ======================================================== */
 
     .titulo-principal {
         text-align: center;
-        font-size: 3.2rem;
+        font-size: 3rem;
         font-weight: 900;
-        margin-top: 10px;
+        margin-top: 15px;
         margin-bottom: 5px;
 
         background: linear-gradient(
@@ -88,149 +100,63 @@ st.markdown("""
         text-align: center;
         color: #cbd5e1;
         font-size: 1.15rem;
-        margin-bottom: 35px;
+        margin-bottom: 30px;
     }
 
 
     /* ========================================================
-       CAJA DEL ENLACE GENERAL
+       CONTENEDORES DE LAS TARJETAS
        ======================================================== */
 
-    .enlace-general {
+    div[data-testid="stVerticalBlockBorderWrapper"] {
         background: rgba(255,255,255,0.07);
-
-        border: 1px solid rgba(255,255,255,0.15);
-
-        border-radius: 18px;
-
-        padding: 20px 25px;
-
-        margin: 20px 0 35px 0;
-
-        box-shadow: 0 10px 35px rgba(0,0,0,0.25);
-
-        backdrop-filter: blur(10px);
-    }
-
-    .enlace-general h3 {
-        margin-top: 0;
-        color: #f8fafc;
-    }
-
-    .enlace-general p {
-        color: #cbd5e1;
-    }
-
-
-    /* ========================================================
-       TARJETAS
-       ======================================================== */
-
-    .tarjeta {
-        background: rgba(255,255,255,0.07);
-
         border: 1px solid rgba(255,255,255,0.12);
-
         border-radius: 20px;
-
-        padding: 18px;
-
-        margin-bottom: 35px;
-
-        min-height: 430px;
+        padding: 10px;
 
         box-shadow:
             0 12px 30px rgba(0,0,0,0.30);
 
-        backdrop-filter: blur(10px);
-
-        transition:
-            transform 0.25s ease,
-            box-shadow 0.25s ease,
-            border-color 0.25s ease;
-    }
-
-    .tarjeta:hover {
-        transform: translateY(-7px);
-
-        border-color: rgba(129,140,248,0.7);
-
-        box-shadow:
-            0 20px 45px rgba(0,0,0,0.45),
-            0 0 25px rgba(99,102,241,0.15);
+        margin-bottom: 25px;
     }
 
 
     /* ========================================================
-       NÚMERO DE APLICACIÓN
+       TÍTULOS
+       ======================================================== */
+
+    .titulo-tarjeta {
+        color: #f8fafc !important;
+        font-size: 21px !important;
+        font-weight: 750 !important;
+        line-height: 1.25;
+        min-height: 55px;
+    }
+
+
+    /* ========================================================
+       NÚMERO
        ======================================================== */
 
     .numero {
-        display: inline-block;
-
+        color: white;
         background: linear-gradient(
             135deg,
             #38bdf8,
             #6366f1
         );
 
-        color: white;
+        display: inline-block;
+
+        padding: 5px 12px;
+
+        border-radius: 20px;
 
         font-size: 13px;
 
         font-weight: 700;
 
-        padding: 5px 10px;
-
-        border-radius: 20px;
-
-        margin-bottom: 10px;
-    }
-
-
-    /* ========================================================
-       TÍTULO DE TARJETA
-       ======================================================== */
-
-    .titulo-tarjeta {
-        min-height: 75px;
-
-        display: flex;
-
-        align-items: flex-start;
-    }
-
-    .titulo-tarjeta h3 {
-        margin: 0;
-
-        color: #f8fafc;
-
-        font-size: 22px;
-
-        line-height: 1.2;
-
-        font-weight: 750;
-    }
-
-
-    /* ========================================================
-       IMÁGENES
-       ======================================================== */
-
-    .imagen-tarjeta {
-        width: 100%;
-
-        height: 180px;
-
-        object-fit: cover;
-
-        border-radius: 14px;
-
-        display: block;
-
-        border: 1px solid rgba(255,255,255,0.1);
-
-        margin-bottom: 15px;
+        margin-bottom: 8px;
     }
 
 
@@ -238,78 +164,57 @@ st.markdown("""
        DESCRIPCIÓN
        ======================================================== */
 
-    .descripcion-tarjeta {
-        min-height: 105px;
+    .descripcion {
+        color: #cbd5e1 !important;
 
         font-size: 15px;
 
         line-height: 1.6;
 
-        padding-top: 15px;
+        min-height: 95px;
 
-        color: #cbd5e1;
+        padding-top: 8px;
     }
 
 
     /* ========================================================
-       BOTÓN
+       BOTONES
        ======================================================== */
 
-    .boton-enlace {
-        display: block;
-
-        text-align: center;
-
-        padding: 11px 15px;
-
-        border-radius: 12px;
-
-        text-decoration: none;
-
-        font-weight: 700;
-
-        color: white !important;
-
+    .stLinkButton a {
         background: linear-gradient(
             135deg,
             #2563eb,
             #7c3aed
-        );
+        ) !important;
 
-        box-shadow:
-            0 5px 15px rgba(37,99,235,0.25);
+        color: white !important;
 
-        transition:
-            transform 0.2s ease,
-            box-shadow 0.2s ease;
+        border: none !important;
+
+        border-radius: 12px !important;
+
+        font-weight: 700 !important;
     }
 
-    .boton-enlace:hover {
-        transform: scale(1.03);
+    .stLinkButton a:hover {
+        background: linear-gradient(
+            135deg,
+            #1d4ed8,
+            #6d28d9
+        ) !important;
 
-        box-shadow:
-            0 8px 22px rgba(124,58,237,0.4);
-
-        text-decoration: none;
-    }
-
-
-    /* ========================================================
-       SEPARADOR
-       ======================================================== */
-
-    hr {
-        border-color: rgba(255,255,255,0.12);
+        color: white !important;
     }
 
 
     /* ========================================================
-       COLUMNAS
+       IMÁGENES
        ======================================================== */
 
-    [data-testid="column"] {
-        padding-left: 10px;
-        padding-right: 10px;
+    [data-testid="stImage"] img {
+        border-radius: 14px;
+        border: 1px solid rgba(255,255,255,0.1);
     }
 
 
@@ -319,11 +224,8 @@ st.markdown("""
 
     .footer {
         text-align: center;
-
         color: #94a3b8;
-
         padding: 35px 0 20px 0;
-
         font-size: 14px;
     }
 
@@ -332,7 +234,7 @@ st.markdown("""
 
 
 # ============================================================
-# FUNCIÓN PARA MOSTRAR TARJETAS
+# FUNCIÓN PARA MOSTRAR TARJETA
 # ============================================================
 
 def mostrar_tarjeta(
@@ -344,69 +246,55 @@ def mostrar_tarjeta(
     url
 ):
 
-    # --------------------------------------------------------
-    # ABRIR Y PREPARAR IMAGEN
-    # --------------------------------------------------------
+    # Crear tarjeta
+    with st.container(border=True):
 
-    img = Image.open(imagen)
+        # Número
+        st.markdown(
+            f'<div class="numero">Aplicación {numero}</div>',
+            unsafe_allow_html=True
+        )
 
-    img = ImageOps.fit(
-        img,
-        (600, 300),
-        method=Image.Resampling.LANCZOS
-    )
+        # Título
+        st.markdown(
+            f'<div class="titulo-tarjeta">{titulo}</div>',
+            unsafe_allow_html=True
+        )
 
-    # --------------------------------------------------------
-    # TARJETA SUPERIOR
-    # --------------------------------------------------------
+        # Imagen
+        try:
 
-    st.markdown(
-        textwrap.dedent(f"""
-        <div class="tarjeta">
+            img = Image.open(imagen)
 
-            <div class="numero">
-                Aplicación {numero}
-            </div>
+            img = ImageOps.fit(
+                img,
+                (600, 300),
+                method=Image.Resampling.LANCZOS
+            )
 
-            <div class="titulo-tarjeta">
-                <h3>{titulo}</h3>
-            </div>
+            st.image(
+                img,
+                use_container_width=True
+            )
 
-        """),
-        unsafe_allow_html=True
-    )
+        except Exception as e:
 
-    # --------------------------------------------------------
-    # IMAGEN
-    # --------------------------------------------------------
+            st.warning(
+                f"No se pudo cargar la imagen: {imagen}"
+            )
 
-    st.image(
-        img,
-        width="stretch"
-    )
+        # Descripción
+        st.markdown(
+            f'<div class="descripcion">{descripcion}</div>',
+            unsafe_allow_html=True
+        )
 
-    # --------------------------------------------------------
-    # DESCRIPCIÓN Y BOTÓN
-    # --------------------------------------------------------
-
-    st.markdown(
-        textwrap.dedent(f"""
-            <div class="descripcion-tarjeta">
-                {descripcion}
-            </div>
-
-            <a
-                href="{url}"
-                target="_blank"
-                class="boton-enlace"
-            >
-                🚀 {texto_enlace}
-            </a>
-
-        </div>
-        """),
-        unsafe_allow_html=True
-    )
+        # Botón
+        st.link_button(
+            f"🚀 {texto_enlace}",
+            url,
+            use_container_width=True
+        )
 
 
 # ============================================================
@@ -414,16 +302,17 @@ def mostrar_tarjeta(
 # ============================================================
 
 st.markdown(
-    textwrap.dedent("""
-    <div class="titulo-principal">
-        🤖 Aplicaciones de Inteligencia Artificial
-    </div>
+    '<div class="titulo-principal">'
+    '🤖 Aplicaciones de Inteligencia Artificial'
+    '</div>',
+    unsafe_allow_html=True
+)
 
-    <div class="subtitulo-principal">
-        Explora diferentes herramientas y aplicaciones
-        desarrolladas con Inteligencia Artificial
-    </div>
-    """),
+st.markdown(
+    '<div class="subtitulo-principal">'
+    'Explora diferentes herramientas y aplicaciones '
+    'desarrolladas con Inteligencia Artificial'
+    '</div>',
     unsafe_allow_html=True
 )
 
@@ -436,20 +325,18 @@ with st.sidebar:
 
     st.markdown("## 🤖 Inteligencia Artificial")
 
-    st.markdown("---")
+    st.divider()
 
     st.markdown("### 📚 Sobre este proyecto")
 
-    parrafo = (
+    st.write(
         "La inteligencia artificial permite mejorar la toma "
         "de decisiones mediante el uso de datos, automatizar "
         "tareas rutinarias y proporcionar análisis avanzados "
         "en tiempo real."
     )
 
-    st.write(parrafo)
-
-    st.markdown("---")
+    st.divider()
 
     st.markdown("### 🧠 Aplicaciones disponibles")
 
@@ -463,35 +350,23 @@ with st.sidebar:
 
 
 # ============================================================
-# ENLACE GENERAL
+# RECURSOS Y EJERCICIOS
 # ============================================================
 
-url_ia = "https://sites.google.com/view/aplicacionesdeia/inicio"
-
-st.markdown(
-    textwrap.dedent(f"""
-    <div class="enlace-general">
-
-        <h3>📖 Recursos y ejercicios</h3>
-
-        <p>
-            En el siguiente enlace puedes encontrar páginas,
-            recursos y ejercicios prácticos relacionados con
-            las aplicaciones de Inteligencia Artificial.
-        </p>
-
-        <a
-            href="{url_ia}"
-            target="_blank"
-            class="boton-enlace"
-        >
-            🌐 Ver recursos y ejercicios
-        </a>
-
-    </div>
-    """),
-    unsafe_allow_html=True
+st.info(
+    "📖 **Recursos y ejercicios**\n\n"
+    "En el siguiente enlace puedes encontrar páginas, "
+    "recursos y ejercicios prácticos relacionados con "
+    "las aplicaciones de Inteligencia Artificial."
 )
+
+st.link_button(
+    "🌐 Ver recursos y ejercicios",
+    "https://sites.google.com/view/aplicacionesdeia/inicio",
+    use_container_width=True
+)
+
+st.write("")
 
 
 # ============================================================
@@ -549,8 +424,8 @@ with col2:
         "Imagen a texto (OCR) y análisis de vocales",
         "ocr.jpg",
         "Aplicación que permite extraer texto de imágenes "
-        "mediante reconocimiento óptico de caracteres (OCR) "
-        "y realizar análisis de vocales.",
+        "mediante reconocimiento óptico de caracteres "
+        "(OCR) y realizar análisis de vocales.",
         "OCR",
         "https://aplicacion-75drrvtjhfwfrvhehhudhk.streamlit.app/"
     )
@@ -630,12 +505,11 @@ with col3:
 # ============================================================
 
 st.markdown(
-    textwrap.dedent("""
-    <div class="footer">
-        🤖 Aplicaciones de Inteligencia Artificial
-        <br>
-        Proyecto educativo · Streamlit
-    </div>
-    """),
+    '<div class="footer">'
+    '🤖 Aplicaciones de Inteligencia Artificial'
+    '<br>'
+    'Proyecto educativo · Streamlit'
+    '</div>',
     unsafe_allow_html=True
 )
+
