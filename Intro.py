@@ -285,3 +285,14 @@ with col3:
         "https://tm-detection-npqnkslgj6ps87sj9fvtre.streamlit.app/"
     )
 
+    # 10. TM ENTRENADA
+    mostrar_tarjeta(
+        "TM entrenada",
+        "TM.jpg",
+        "Aplicación basada en un modelo de Teachable Machine "
+        "previamente entrenado para realizar predicciones "
+        "mediante Inteligencia Artificial.",
+        "TM entrenada",
+        "https://tm-detection-npqnkslgj6ps87sj9fvtre.streamlit.app/"
+    )
+
