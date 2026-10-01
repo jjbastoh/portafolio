@@ -1,5 +1,6 @@
 import streamlit as st
 from PIL import Image, ImageOps
+import textwrap
 
 # ============================================================
 # CONFIGURACIÓN
@@ -28,6 +29,7 @@ st.markdown("""
             radial-gradient(circle at top left, #312e81 0%, transparent 35%),
             radial-gradient(circle at top right, #0e7490 0%, transparent 30%),
             linear-gradient(135deg, #0f172a, #111827 55%, #1e1b4b);
+
         color: #f8fafc;
     }
 
@@ -96,10 +98,13 @@ st.markdown("""
 
     .enlace-general {
         background: rgba(255,255,255,0.07);
+
         border: 1px solid rgba(255,255,255,0.15);
+
         border-radius: 18px;
 
         padding: 20px 25px;
+
         margin: 20px 0 35px 0;
 
         box-shadow: 0 10px 35px rgba(0,0,0,0.25);
@@ -145,9 +150,6 @@ st.markdown("""
             border-color 0.25s ease;
     }
 
-
-    /* Efecto al pasar el mouse */
-
     .tarjeta:hover {
         transform: translateY(-7px);
 
@@ -175,6 +177,7 @@ st.markdown("""
         color: white;
 
         font-size: 13px;
+
         font-weight: 700;
 
         padding: 5px 10px;
@@ -190,9 +193,10 @@ st.markdown("""
        ======================================================== */
 
     .titulo-tarjeta {
-        height: 75px;
+        min-height: 75px;
 
         display: flex;
+
         align-items: flex-start;
     }
 
@@ -225,6 +229,8 @@ st.markdown("""
         display: block;
 
         border: 1px solid rgba(255,255,255,0.1);
+
+        margin-bottom: 15px;
     }
 
 
@@ -338,24 +344,8 @@ def mostrar_tarjeta(
     url
 ):
 
-    st.markdown(
-        f"""
-        <div class="tarjeta">
-
-            <div class="numero">
-                Aplicación {numero}
-            </div>
-
-            <div class="titulo-tarjeta">
-                <h3>{titulo}</h3>
-            </div>
-
-        """,
-        unsafe_allow_html=True
-    )
-
     # --------------------------------------------------------
-    # IMAGEN
+    # ABRIR Y PREPARAR IMAGEN
     # --------------------------------------------------------
 
     img = Image.open(imagen)
@@ -366,17 +356,41 @@ def mostrar_tarjeta(
         method=Image.Resampling.LANCZOS
     )
 
+    # --------------------------------------------------------
+    # TARJETA SUPERIOR
+    # --------------------------------------------------------
+
+    st.markdown(
+        textwrap.dedent(f"""
+        <div class="tarjeta">
+
+            <div class="numero">
+                Aplicación {numero}
+            </div>
+
+            <div class="titulo-tarjeta">
+                <h3>{titulo}</h3>
+            </div>
+
+        """),
+        unsafe_allow_html=True
+    )
+
+    # --------------------------------------------------------
+    # IMAGEN
+    # --------------------------------------------------------
+
     st.image(
         img,
         width="stretch"
     )
 
     # --------------------------------------------------------
-    # DESCRIPCIÓN
+    # DESCRIPCIÓN Y BOTÓN
     # --------------------------------------------------------
 
     st.markdown(
-        f"""
+        textwrap.dedent(f"""
             <div class="descripcion-tarjeta">
                 {descripcion}
             </div>
@@ -386,11 +400,11 @@ def mostrar_tarjeta(
                 target="_blank"
                 class="boton-enlace"
             >
-                🚀 Abrir aplicación
+                🚀 {texto_enlace}
             </a>
 
         </div>
-        """,
+        """),
         unsafe_allow_html=True
     )
 
@@ -400,7 +414,7 @@ def mostrar_tarjeta(
 # ============================================================
 
 st.markdown(
-    """
+    textwrap.dedent("""
     <div class="titulo-principal">
         🤖 Aplicaciones de Inteligencia Artificial
     </div>
@@ -409,7 +423,7 @@ st.markdown(
         Explora diferentes herramientas y aplicaciones
         desarrolladas con Inteligencia Artificial
     </div>
-    """,
+    """),
     unsafe_allow_html=True
 )
 
@@ -455,7 +469,7 @@ with st.sidebar:
 url_ia = "https://sites.google.com/view/aplicacionesdeia/inicio"
 
 st.markdown(
-    f"""
+    textwrap.dedent(f"""
     <div class="enlace-general">
 
         <h3>📖 Recursos y ejercicios</h3>
@@ -475,7 +489,7 @@ st.markdown(
         </a>
 
     </div>
-    """,
+    """),
     unsafe_allow_html=True
 )
 
@@ -616,13 +630,12 @@ with col3:
 # ============================================================
 
 st.markdown(
-    """
+    textwrap.dedent("""
     <div class="footer">
         🤖 Aplicaciones de Inteligencia Artificial
         <br>
         Proyecto educativo · Streamlit
     </div>
-    """,
+    """),
     unsafe_allow_html=True
 )
-
