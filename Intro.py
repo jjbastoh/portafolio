@@ -13,15 +13,11 @@ st.set_page_config(
 )
 
 # ============================================================
-# CSS
+# CSS ORIGINAL
 # ============================================================
 
 st.markdown("""
 <style>
-
-    /* ========================================================
-       FONDO
-       ======================================================== */
 
     .stApp {
         background:
@@ -41,14 +37,8 @@ st.markdown("""
                 #111827 55%,
                 #1e1b4b
             );
-
         color: #f8fafc;
     }
-
-
-    /* ========================================================
-       SIDEBAR
-       ======================================================== */
 
     section[data-testid="stSidebar"] {
         background:
@@ -58,7 +48,6 @@ st.markdown("""
                 #172554 50%,
                 #1e1b4b 100%
             );
-
         border-right: 1px solid rgba(255,255,255,0.12);
     }
 
@@ -72,18 +61,12 @@ st.markdown("""
         line-height: 1.7;
     }
 
-
-    /* ========================================================
-       TÍTULO
-       ======================================================== */
-
     .titulo-principal {
         text-align: center;
         font-size: 3rem;
         font-weight: 900;
         margin-top: 15px;
         margin-bottom: 5px;
-
         background: linear-gradient(
             90deg,
             #38bdf8,
@@ -91,7 +74,6 @@ st.markdown("""
             #c084fc,
             #f472b6
         );
-
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
@@ -103,27 +85,14 @@ st.markdown("""
         margin-bottom: 30px;
     }
 
-
-    /* ========================================================
-       CONTENEDORES DE LAS TARJETAS
-       ======================================================== */
-
     div[data-testid="stVerticalBlockBorderWrapper"] {
         background: rgba(255,255,255,0.07);
         border: 1px solid rgba(255,255,255,0.12);
         border-radius: 20px;
         padding: 10px;
-
-        box-shadow:
-            0 12px 30px rgba(0,0,0,0.30);
-
+        box-shadow: 0 12px 30px rgba(0,0,0,0.30);
         margin-bottom: 25px;
     }
-
-
-    /* ========================================================
-       TÍTULOS
-       ======================================================== */
 
     .titulo-tarjeta {
         color: #f8fafc !important;
@@ -133,11 +102,6 @@ st.markdown("""
         min-height: 55px;
     }
 
-
-    /* ========================================================
-       NÚMERO
-       ======================================================== */
-
     .numero {
         color: white;
         background: linear-gradient(
@@ -145,41 +109,21 @@ st.markdown("""
             #38bdf8,
             #6366f1
         );
-
         display: inline-block;
-
         padding: 5px 12px;
-
         border-radius: 20px;
-
         font-size: 13px;
-
         font-weight: 700;
-
         margin-bottom: 8px;
     }
 
-
-    /* ========================================================
-       DESCRIPCIÓN
-       ======================================================== */
-
     .descripcion {
         color: #cbd5e1 !important;
-
         font-size: 15px;
-
         line-height: 1.6;
-
         min-height: 95px;
-
         padding-top: 8px;
     }
-
-
-    /* ========================================================
-       BOTONES
-       ======================================================== */
 
     .stLinkButton a {
         background: linear-gradient(
@@ -187,13 +131,9 @@ st.markdown("""
             #2563eb,
             #7c3aed
         ) !important;
-
         color: white !important;
-
         border: none !important;
-
         border-radius: 12px !important;
-
         font-weight: 700 !important;
     }
 
@@ -203,24 +143,13 @@ st.markdown("""
             #1d4ed8,
             #6d28d9
         ) !important;
-
         color: white !important;
     }
-
-
-    /* ========================================================
-       IMÁGENES
-       ======================================================== */
 
     [data-testid="stImage"] img {
         border-radius: 14px;
         border: 1px solid rgba(255,255,255,0.1);
     }
-
-
-    /* ========================================================
-       FOOTER
-       ======================================================== */
 
     .footer {
         text-align: center;
@@ -234,7 +163,7 @@ st.markdown("""
 
 
 # ============================================================
-# FUNCIÓN PARA MOSTRAR TARJETA
+# FUNCIÓN PARA MOSTRAR TARJETAS
 # ============================================================
 
 def mostrar_tarjeta(
@@ -245,25 +174,19 @@ def mostrar_tarjeta(
     texto_enlace,
     url
 ):
-
-    # Crear tarjeta
     with st.container(border=True):
 
-        # Número
         st.markdown(
             f'<div class="numero">Aplicación {numero}</div>',
             unsafe_allow_html=True
         )
 
-        # Título
         st.markdown(
             f'<div class="titulo-tarjeta">{titulo}</div>',
             unsafe_allow_html=True
         )
 
-        # Imagen
         try:
-
             img = Image.open(imagen)
 
             img = ImageOps.fit(
@@ -277,24 +200,22 @@ def mostrar_tarjeta(
                 use_container_width=True
             )
 
-        except Exception as e:
-
+        except Exception:
             st.warning(
                 f"No se pudo cargar la imagen: {imagen}"
             )
 
-        # Descripción
         st.markdown(
             f'<div class="descripcion">{descripcion}</div>',
             unsafe_allow_html=True
         )
 
-        # Botón
-        st.link_button(
-            f"🚀 {texto_enlace}",
-            url,
-            use_container_width=True
-        )
+        if url:
+            st.link_button(
+                f"🚀 {texto_enlace}",
+                url,
+                use_container_width=True
+            )
 
 
 # ============================================================
@@ -324,7 +245,6 @@ st.markdown(
 with st.sidebar:
 
     st.markdown("## 🤖 Inteligencia Artificial")
-
     st.divider()
 
     st.markdown("### 📚 Sobre este proyecto")
@@ -370,134 +290,212 @@ st.write("")
 
 
 # ============================================================
-# COLUMNAS
+# LISTA DE APLICACIONES
+# ============================================================
+
+aplicaciones = [
+
+    # APLICACIONES ORIGINALES
+
+    {
+        "numero": 1,
+        "titulo": "Introducción",
+        "imagen": "inttro.jpg",
+        "descripcion": "En esta aplicación se presenta una introducción a las aplicaciones de la Inteligencia Artificial.",
+        "texto_enlace": "Introducción",
+        "url": "https://estesi-z29ropifyfvwhuted9mfsb.streamlit.app/"
+    },
+    {
+        "numero": 2,
+        "titulo": "Conversión de texto a voz",
+        "imagen": "texttospeech.jpg",
+        "descripcion": "Aplicación que permite convertir texto escrito en voz mediante Inteligencia Artificial.",
+        "texto_enlace": "Texto a voz",
+        "url": "https://ahora-si-jqdr2awuqu2v3qgtm5tt2b.streamlit.app/"
+    },
+    {
+        "numero": 3,
+        "titulo": "Voz a texto multilingüe",
+        "imagen": "traductor.jpg",
+        "descripcion": "Aplicación que permite convertir voz en texto y trabajar con diferentes idiomas.",
+        "texto_enlace": "Voz a texto",
+        "url": "https://cualquiercosa-9vujzvkt47ulpaigzy82em.streamlit.app/"
+    },
+    {
+        "numero": 4,
+        "titulo": "Imagen a texto (OCR) y análisis de vocales",
+        "imagen": "ocr.jpg",
+        "descripcion": "Aplicación que permite extraer texto de imágenes mediante OCR y realizar análisis de vocales.",
+        "texto_enlace": "OCR",
+        "url": "https://aplicacion-75drrvtjhfwfrvhehhudhk.streamlit.app/"
+    },
+    {
+        "numero": 5,
+        "titulo": "Evaluación automática TF",
+        "imagen": "analis.jpg",
+        "descripcion": "Aplicación para realizar procesos de evaluación automática utilizando Inteligencia Artificial.",
+        "texto_enlace": "Evaluación",
+        "url": "https://tdfesp-admzi2whggzdysyv6hrrzw.streamlit.app/"
+    },
+    {
+        "numero": 6,
+        "titulo": "Reconocimiento de emociones",
+        "imagen": "reconocmiento.jpg",
+        "descripcion": "Aplicación que permite reconocer y analizar emociones mediante Inteligencia Artificial.",
+        "texto_enlace": "Emociones",
+        "url": "https://sentimenta-8iy82nmkh7fnyggx7cecu5.streamlit.app/"
+    },
+    {
+        "numero": 7,
+        "titulo": "Detección de objetos en imágenes",
+        "imagen": "recobj.jpg",
+        "descripcion": "Aplicación que permite detectar diferentes objetos dentro de imágenes mediante Inteligencia Artificial.",
+        "texto_enlace": "Detección de objetos",
+        "url": "https://yolov5-nemrh4dhsxvkjiv4bakkhb.streamlit.app/"
+    },
+    {
+        "numero": 8,
+        "titulo": "Nube de palabras",
+        "imagen": "nube.jpg",
+        "descripcion": "Aplicación que permite generar nubes de palabras a partir de textos y datos.",
+        "texto_enlace": "Nube de palabras",
+        "url": "https://wordcloud-2urj9yggquvij7xmnmsqtv.streamlit.app/"
+    },
+    {
+        "numero": 9,
+        "titulo": "Teachable Machine",
+        "imagen": "TM.jpg",
+        "descripcion": "Aplicación para entrenar modelos de Inteligencia Artificial y realizar predicciones.",
+        "texto_enlace": "Teachable Machine",
+        "url": "https://tm-detection-npqnkslgj6ps87sj9fvtre.streamlit.app/"
+    },
+    {
+        "numero": 10,
+        "titulo": "TM entrenada",
+        "imagen": "TM.jpg",
+        "descripcion": "Aplicación basada en un modelo de Teachable Machine previamente entrenado para realizar predicciones.",
+        "texto_enlace": "TM entrenada",
+        "url": "https://tm-detection-npqnkslgj6ps87sj9fvtre.streamlit.app/"
+    },
+
+    # NUEVAS APLICACIONES
+
+    {
+        "numero": 11,
+        "titulo": "Análisis de PDF",
+        "imagen": "PDF.jpg",
+        "descripcion": "Aplicación que permite analizar documentos PDF y consultar su contenido mediante Inteligencia Artificial.",
+        "texto_enlace": "Analizar PDF",
+        "url": "https://chatpdf-p8dreedbl7mfyb5stkrtnn.streamlit.app/"
+    },
+    {
+        "numero": 12,
+        "titulo": "Reconocimiento de imágenes",
+        "imagen": "recogimg.jpg",
+        "descripcion": "Aplicación de visión artificial para reconocer y analizar imágenes.",
+        "texto_enlace": "Reconocer imágenes",
+        "url": "https://visionapp-dp5s9n48czuerqc3nvfqm9.streamlit.app/"
+    },
+    {
+        "numero": 13,
+        "titulo": "Tablero inteligente",
+        "imagen": "tablero.jpg",
+        "descripcion": "Tablero inteligente para interactuar con trazos y dibujos.",
+        "texto_enlace": "Abrir tablero",
+        "url": "https://drawrecog-jmupgqvg3stu5w4cxp9edw.streamlit.app/"
+    },
+    {
+        "numero": 14,
+        "titulo": "Tablero personalizado",
+        "imagen": "tableropers.jpg",
+        "descripcion": "Tablero interactivo personalizado para realizar actividades y explorar diferentes funciones.",
+        "texto_enlace": "Abrir tablero",
+        "url": "https://tableroperzonalizado-evetxxy6wgjcysafhgygb7.streamlit.app/"
+    },
+    {
+        "numero": 15,
+        "titulo": "Detección de dígitos a mano",
+        "imagen": "detecnum.jpg",
+        "descripcion": "Reconoce dígitos escritos a mano mediante un modelo de aprendizaje automático.",
+        "texto_enlace": "Detectar dígitos",
+        "url": "https://mnistpred-hrccjfx4k2uhhhk7gcyz8u.streamlit.app/"
+    },
+    {
+        "numero": 16,
+        "titulo": "Reconocimiento de dibujos",
+        "imagen": "recogdibuj.jpg",
+        "descripcion": "Aplicación para reconocer dibujos y explorar técnicas de reconocimiento visual.",
+        "texto_enlace": "Reconocer dibujos",
+        "url": "https://drawrecog-5nug9hv5mbhqxqnl7keuw6.streamlit.app/"
+    },
+    {
+        "numero": 17,
+        "titulo": "Control por voz",
+        "imagen": "controlvoz.jpg",
+        "descripcion": "Aplicación que permite interactuar mediante comandos de voz.",
+        "texto_enlace": "Control por voz",
+        "url": "https://ctrlvoice-2n9fh65uoadnjyatelq4br.streamlit.app/"
+    },
+    {
+        "numero": 18,
+        "titulo": "Lector del sensor MQTT",
+        "imagen": "lectorsensor.jpg",
+        "descripcion": "Consulta información recibida desde sensores mediante comunicación MQTT.",
+        "texto_enlace": "Leer sensor MQTT",
+        "url": "https://recepmqtt-igzow4v3hzzukrud6nuxh2.streamlit.app/"
+    },
+    {
+        "numero": 19,
+        "titulo": "Control MQTT de la puerta",
+        "imagen": "controlmqttpuer.jpg",
+        "descripcion": "Aplicación para controlar una puerta a través de comunicación MQTT.",
+        "texto_enlace": "Controlar puerta",
+        "url": "https://sendcmqtt-mcsjjva9qirwj2qmupvpmz.streamlit.app/"
+    },
+    {
+        "numero": 20,
+        "titulo": "Control por voz y MQTT",
+        "imagen": "controlvoz.jpg",
+        "descripcion": "Combina comandos de voz y comunicación MQTT para interactuar con dispositivos.",
+        "texto_enlace": "Abrir aplicación",
+        "url": "https://clas14dossi-ydncff72jne6pzhstabi2s.streamlit.app/Control_por_voz"
+    },
+    {
+        "numero": 21,
+        "titulo": "TM y YOLO",
+        "imagen": "tmyolo.jpg",
+        "descripcion": "Aplicación que integra herramientas de reconocimiento y detección de objetos.",
+        "texto_enlace": "TM y YOLO",
+        "url": "https://clase14si-v5lfqi9eefjxnbgrmzyg3q.streamlit.app/Teachable_Machine"
+    },
+    {
+        "numero": 22,
+        "titulo": "Cerradura por gestos",
+        "imagen": "cerraduragest.jpg",
+        "descripcion": "Aplicación de cerradura que utiliza gestos como mecanismo de interacción.",
+        "texto_enlace": "Cerradura por gestos",
+        "url": "https://cerraduragestos-kdp3zunq4neexhrtkjgl3t.streamlit.app/"
+    },
+]
+
+
+# ============================================================
+# MOSTRAR APLICACIONES EN TRES COLUMNAS
 # ============================================================
 
 col1, col2, col3 = st.columns(3)
+columnas = [col1, col2, col3]
 
-
-# ============================================================
-# COLUMNA 1
-# ============================================================
-
-with col1:
-
-    mostrar_tarjeta(
-        1,
-        "Introducción",
-        "inttro.jpg",
-        "En esta aplicación se presenta una introducción "
-        "a las aplicaciones de la Inteligencia Artificial.",
-        "Introducción",
-        "https://estesi-z29ropifyfvwhuted9mfsb.streamlit.app/"
-    )
-
-    mostrar_tarjeta(
-        2,
-        "Conversión de texto a voz",
-        "texttospeech.jpg",
-        "Aplicación que permite convertir texto escrito "
-        "en voz mediante Inteligencia Artificial.",
-        "Texto a voz",
-        "https://ahora-si-jqdr2awuqu2v3qgtm5tt2b.streamlit.app/"
-    )
-
-    mostrar_tarjeta(
-        3,
-        "Voz a texto multilingüe",
-        "traductor.jpg",
-        "Aplicación que permite convertir voz en texto "
-        "y trabajar con diferentes idiomas.",
-        "Voz a texto",
-        "https://cualquiercosa-9vujzvkt47ulpaigzy82em.streamlit.app/"
-    )
-
-
-# ============================================================
-# COLUMNA 2
-# ============================================================
-
-with col2:
-
-    mostrar_tarjeta(
-        4,
-        "Imagen a texto (OCR) y análisis de vocales",
-        "ocr.jpg",
-        "Aplicación que permite extraer texto de imágenes "
-        "mediante reconocimiento óptico de caracteres "
-        "(OCR) y realizar análisis de vocales.",
-        "OCR",
-        "https://aplicacion-75drrvtjhfwfrvhehhudhk.streamlit.app/"
-    )
-
-    mostrar_tarjeta(
-        5,
-        "Evaluación automática TF",
-        "analis.jpg",
-        "Aplicación para realizar procesos de evaluación "
-        "automática utilizando Inteligencia Artificial.",
-        "Evaluación",
-        "https://tdfesp-admzi2whggzdysyv6hrrzw.streamlit.app/"
-    )
-
-    mostrar_tarjeta(
-        6,
-        "Reconocimiento de emociones",
-        "reconocmiento.jpg",
-        "Aplicación que permite reconocer y analizar "
-        "emociones mediante Inteligencia Artificial.",
-        "Emociones",
-        "https://sentimenta-8iy82nmkh7fnyggx7cecu5.streamlit.app/"
-    )
-
-
-# ============================================================
-# COLUMNA 3
-# ============================================================
-
-with col3:
-
-    mostrar_tarjeta(
-        7,
-        "Detección de objetos en imágenes",
-        "recobj.jpg",
-        "Aplicación que permite detectar diferentes objetos "
-        "dentro de imágenes mediante Inteligencia Artificial.",
-        "Detección de objetos",
-        "https://yolov5-nemrh4dhsxvkjiv4bakkhb.streamlit.app/"
-    )
-
-    mostrar_tarjeta(
-        8,
-        "Nube de palabras",
-        "nube.jpg",
-        "Aplicación que permite generar nubes de palabras "
-        "a partir de textos y datos.",
-        "Nube de palabras",
-        "https://wordcloud-2urj9yggquvij7xmnmsqtv.streamlit.app/"
-    )
-
-    mostrar_tarjeta(
-        9,
-        "Teachable Machine",
-        "TM.jpg",
-        "Aplicación para entrenar modelos de Inteligencia "
-        "Artificial y utilizarlos posteriormente para "
-        "realizar predicciones.",
-        "Teachable Machine",
-        "https://tm-detection-npqnkslgj6ps87sj9fvtre.streamlit.app/"
-    )
-
-    mostrar_tarjeta(
-        10,
-        "TM entrenada",
-        "TM.jpg",
-        "Aplicación basada en un modelo de Teachable Machine "
-        "previamente entrenado para realizar predicciones "
-        "mediante Inteligencia Artificial.",
-        "TM entrenada",
-        "https://tm-detection-npqnkslgj6ps87sj9fvtre.streamlit.app/"
-    )
+for indice, aplicacion in enumerate(aplicaciones):
+    with columnas[indice % 3]:
+        mostrar_tarjeta(
+            aplicacion["numero"],
+            aplicacion["titulo"],
+            aplicacion["imagen"],
+            aplicacion["descripcion"],
+            aplicacion["texto_enlace"],
+            aplicacion["url"]
+        )
 
 
 # ============================================================
@@ -512,4 +510,3 @@ st.markdown(
     '</div>',
     unsafe_allow_html=True
 )
-
